@@ -11,7 +11,7 @@ This project was created working with a custom built front-end UI and back-end d
 ## How to Use
 
 ## See it live!
-![A screen recording of the application](https://github.com/djcaraballo/marvel-match/blob/master/src/assets/Screenshots/ScreenVideo.gif)
+![A screen recording of the application]()
 
 ## Languages/Technologies Used
 Front-end: HTML5, CSS3, Vanilla JS
