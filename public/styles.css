@@ -18,7 +18,7 @@ h1 {
 }
 
 h3 {
-  color: white;
+  color: #e8a9a9;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -34,7 +34,7 @@ h3 {
   display: flex;
   justify-content: center;
   margin: auto;
-  padding-left: 7rem;
+  padding-left: 6rem;
   width: 100%;
 }
 
@@ -46,37 +46,48 @@ h3 {
   border: 1px dotted black;
   border-radius: 50%;
   height: 15em;
+  position: relative;
   width: 15em;
 }
 
 .first-color {
   background: #f43245;
-  /*border-bottom-left-radius: 25px;*/
-  /*border-top-left-radius: 25px;*/
 }
 
 .second-color {
   background: #f48745;
-  position: relative;
-  right: 60px;
+  right: 50px;
 }
 
 .third-color {
   background: #343245;
-  position: relative;
-  right: 120px;
+  right: 100px;
 }
 
 .fourth-color {
   background: #f74a25;
-  position: relative;
-  right: 180px;
+  right: 150px;
 }
 
 .fifth-color {
   background: #ab4945;
-  position: relative;
-  right: 240px;
-  /*border-bottom-right-radius: 25px;*/
-  /*border-top-right-radius: 25px;*/
+  right: 200px;
 }
+
+.refresh-lock-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem auto;
+  width: 67%;
+}
+
+.unlocked-btn {
+  height: 1.5em;
+  margin-right: 10px;
+}
+
+.refresh-btn {
+  height: 1.5em;
+}
+
+
