@@ -1,11 +1,12 @@
 //add option to drop down menu
 //inner html of section injected via js
 //change unlocked image to locked on click
-const firstColorSection = document.querySelector('.first-color');
-const secondColorSection = document.querySelector('.second-color');
-const thirdColorSection = document.querySelector('.third-color');
-const fourthColorSection = document.querySelector('.first-color');
-const fifthColorSection = document.querySelector('.first-color');
+//track changes to palette name input
+const firstColor = document.querySelector('.first-color');
+const secondColor = document.querySelector('.second-color');
+const thirdColor = document.querySelector('.third-color');
+const fourthColor = document.querySelector('.fourth-color');
+const fifthColor = document.querySelector('.fifth-color');
 const hex1 = document.querySelector('.hex1');
 const hex2 = document.querySelector('.hex2');
 const hex3 = document.querySelector('.hex3');
@@ -21,3 +22,18 @@ const refreshBtn2 = document.querySelector('.refresh-btn2');
 const refreshBtn3 = document.querySelector('.refresh-btn3');
 const refreshBtn4 = document.querySelector('.refresh-btn4');
 const refreshBtn5 = document.querySelector('.refresh-btn5');
+
+
+const randomColor = () => {
+ return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
+
+const prepInitialPalette = () => {
+  firstColor.style.backgroundColor = randomColor();
+  secondColor.style.backgroundColor = randomColor();
+  thirdColor.style.backgroundColor = randomColor();
+  fourthColor.style.backgroundColor = randomColor();
+  fifthColor.style.backgroundColor = randomColor();
+}
+
+window.onload = prepInitialPalette();

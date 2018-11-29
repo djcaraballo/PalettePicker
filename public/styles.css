@@ -13,16 +13,37 @@ h1 {
   -webkit-text-fill-color: transparent;
   font-size: 6em;
   font-family: 'Montserrat', sans-serif;
-  margin-bottom: 1rem;
+  margin: 1rem;
   text-align: center;
 }
 
 h3 {
   color: #e8a9a9;
   font-family: 'Open Sans', sans-serif;
+} 
+
+.palette-name-label {
+  margin-bottom: 10px;
 }
 
-.drop-menu-wrapper {
+.palette-name-wrapper {
+  margin: 1rem 0;
+}
+
+.palette-name-input {
+  background: #292c2d;
+  border-bottom: 2px solid #ffffff;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  text-align: center;
+}
+
+.drop-menu-wrapper,
+.palette-name-wrapper {
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
@@ -43,7 +64,6 @@ h3 {
 .third-color,
 .fourth-color,
 .fifth-color {
-  border: 1px dotted black;
   border-radius: 50%;
   height: 15em;
   position: relative;
@@ -51,26 +71,26 @@ h3 {
 }
 
 .first-color {
-  background: #f43245;
+  /*background: #f43245;*/
 }
 
 .second-color {
-  background: #f48745;
+  /*background: #f48745;*/
   right: 50px;
 }
 
 .third-color {
-  background: #343245;
+  /*background: #343245;*/
   right: 100px;
 }
 
 .fourth-color {
-  background: #f74a25;
+  /*background: #f74a25;*/
   right: 150px;
 }
 
 .fifth-color {
-  background: #ab4945;
+  /*background: #ab4945;*/
   right: 200px;
 }
 
@@ -88,6 +108,12 @@ h3 {
 
 .refresh-btn {
   height: 1.5em;
+}
+
+.recent-projects-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 80%;
 }
 
 

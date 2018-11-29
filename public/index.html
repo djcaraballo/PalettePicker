@@ -6,26 +6,24 @@
 </head>
 <body>
   <h1>Palette Perfect</h1>
-  <div class="drop-menu-wrapper">
-    <h3>Save palette as:</h3>
-    <select>
-      <option>New Project</option>
-    </select>
-  </div>
-  <div class="palette-wrapper">
-    <section class="first-color"></section>
-    <section class="second-color"></section> 
-    <section class="third-color"></section>
-    <section class="fourth-color"></section>
-    <section class="fifth-color"></section>
-    <div class="hex-wrapper">
-      <h3 class="hex-code hex1"></h3>
-      <h3 class="hex-code hex2"></h3>
-      <h3 class="hex-code hex3"></h3>
-      <h3 class="hex-code hex4"></h3>
-      <h3 class="hex-code hex5"></h3>
-    </div>
-  </div>
+  <section class="palette-name-wrapper">
+    <h3 class="palette-name-label">Palette Name:</h3>
+    <input type="text" name="palette-name" placeholder="Fall Colors Palette" class="palette-name-input">
+  </section>
+  <section class="palette-wrapper">
+    <article class="first-color"></article>
+    <article class="second-color"></article> 
+    <article class="third-color"></article>
+    <article class="fourth-color"></article>
+    <article class="fifth-color"></article>
+    <article class="hex-wrapper">
+      <h3 class="hex-code hex1"><!-- appended hex code goes here --></h3>
+      <h3 class="hex-code hex2"><!-- appended hex code goes here --></h3>
+      <h3 class="hex-code hex3"><!-- appended hex code goes go here --></h3>
+      <h3 class="hex-code hex4"><!-- appended hex code goes go here --></h3>
+      <h3 class="hex-code hex5"><!-- appended hex code goes go here --></h3>
+    </article>
+  </section>
   <section class="refresh-lock-wrapper">
     <article>
       <img src="./assets/images/unlock.png" class="unlocked-btn unlocked-btn1">
@@ -48,6 +46,18 @@
       <img src="./assets/images/refresh.png" class="refresh-btn refresh-btn5">
     </article>
   </section>
+  <div class="drop-menu-wrapper">
+    <h3>Save to project:</h3>
+    <select>
+      <option>New Project</option>
+    </select>
+  </div>
+  <div class="recent-projects-wrapper">
+    <h3>Recent Projects</h3>
+    <section class="recent-projects">
+      <!-- appended recent projects go here -->
+    </section>
+  </div>
   <script src="./index.js"></script>
 </body>
 </html>
