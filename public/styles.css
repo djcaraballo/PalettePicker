@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  background: linear-gradient(#393D3F, #000000);
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+h1 {
+  background: -webkit-linear-gradient(left, #f8a44d, #9f4adf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 6em;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h3 {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.drop-menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  text-align: center;
+  width: 10em;
+}
+
+.palette-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-left: 7rem;
+  width: 100%;
+}
+
+.first-color,
+.second-color,
+.third-color,
+.fourth-color,
+.fifth-color {
+  border: 1px dotted black;
+  border-radius: 50%;
+  height: 15em;
+  width: 15em;
+}
+
+.first-color {
+  background: #f43245;
+  /*border-bottom-left-radius: 25px;*/
+  /*border-top-left-radius: 25px;*/
+}
+
+.second-color {
+  background: #f48745;
+  position: relative;
+  right: 60px;
+}
+
+.third-color {
+  background: #343245;
+  position: relative;
+  right: 120px;
+}
+
+.fourth-color {
+  background: #f74a25;
+  position: relative;
+  right: 180px;
+}
+
+.fifth-color {
+  background: #ab4945;
+  position: relative;
+  right: 240px;
+  /*border-bottom-right-radius: 25px;*/
+  /*border-top-right-radius: 25px;*/
+}
