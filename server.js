@@ -5,18 +5,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.locals.title = 'Palette Perfect';
-app.locals.colors = [
-  {id: 1, name: 'black', type: 'neutral'},
-  {id: '#FFFFFF', name: 'white', type: 'neutral'},
-  {id: '#FE0000', name: 'red', type: 'warm'},
-  {id: '#FEFB00', name: 'yellow', type: 'warm'},
-  {id: '#0032FE', name: 'blue', type: 'cool'},
-  {id: '#393D3F', name: 'cape cod', type: 'neutral'},
-  {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
-  {id: '#C6C5B9', name: 'ash', type: 'neutral'},
-  {id: '#62929E', name: 'gothic', type: 'cool'},
-  {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
-];
+
 app.locals.palettes = [
   {
     id: 1, 
@@ -27,7 +16,8 @@ app.locals.palettes = [
       {id: '#C6C5B9', name: 'ash', type: 'neutral'},
       {id: '#62929E', name: 'gothic', type: 'cool'},
       {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
-    ]
+    ],
+    projectId: 1
   },
   {
     id: 2,
@@ -38,56 +28,56 @@ app.locals.palettes = [
       {id: 'FE0000', name: 'red', type: 'warm'},
       {id: 'FEFB00', name: 'yellow', type: 'warm'},
       {id: '0032FE', name: 'blue', type: 'cool'},
-    ]
+    ],
+    projectId: 2
+  },
+  {
+    id: 3, 
+    name: 'testPalette3', 
+    colors: [
+      {id: '#393D3F', name: 'cape cod', type: 'neutral'},
+      {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
+      {id: '#C6C5B9', name: 'ash', type: 'neutral'},
+      {id: '#62929E', name: 'gothic', type: 'cool'},
+      {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
+    ],
+    projectId: 1
+  },
+  {
+    id: 4,
+    name: 'testPalette4',
+    colors: [
+      {id: '000000', name: 'black', type: 'neutral'},
+      {id: 'FFFFFF', name: 'white', type: 'neutral'},
+      {id: 'FE0000', name: 'red', type: 'warm'},
+      {id: 'FEFB00', name: 'yellow', type: 'warm'},
+      {id: '0032FE', name: 'blue', type: 'cool'},
+    ],
+    projectId: 2
   }
 ];
+
 app.locals.projects = [
-  {id: 1, name: 'testProject', paletteId: 1}
+  {id: 1, name: 'testProject'},
+  {id: 2, name: 'testProject2'}
 ];
 
 app.set('port', process.env.PORT || 3000);
 
-app.get('/', (request, response) => {
-  response.send('hello world');
-});
-
-//retrieves colors from back end
-// app.get('/api/v1/colors', (request, response) => {
-//   const colors = app.locals.colors;
-
-//   return response.status(200).json(colors);
-// });
-
-//retrieves specific color from back end
-// app.get('/api/v1/colors/:id', (request, response) => {
-//   console.log(request.params.id)
-//   const id = request.params.id;
-//   const color = app.locals.colors.find(color => {
-//     return color.id === id;
-//   });
-
-//   if(!color) {
-//     return response.status(404).json({ error: `Color with a hexadecimal code of #${id} could not be found.` });
-//   };
-
-//   return response.status(200).json(color);
-// });
-
-//retrieves palettes from back end
+//retrieves all palettes from back end -- FUNCTIONAL!
 app.get('/api/v1/palettes', (request, response) => {
-  console.log(request)
-
   const palettes = app.locals.palettes;
-
   return response.status(200).json(palettes);
 });
 
 //retrieves specific palettes from back end
 app.get('/api/v1/palettes/:id', (request, response) => {
-  const id = parseInt(request.params.id);
-  const palette = app.locals.palettes.find(palette => {
-    return palette.id === id;
-  });
+  const { id } = request.params;
+  const palette = app.locals.palettes.find((palette) => {
+    return palette.id === parseInt(id)
+  })
+
+  return response.status(200).json(palette);
 });
 
 //adds color to specific palette
