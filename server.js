@@ -94,11 +94,11 @@ app.post('/api/v1/palettes', (request, response) => {
   return response.status(201).json({id});
 });
 
-//deletes specific palette from project from back end --FUNCTIONAL!
+//deletes specific palette from palettes from back end --FUNCTIONAL!
 app.delete('/api/v1/palettes/:id', (request, response) => {
-  const { id } = request.params
-  const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id))
-  return response.status(200).json(filteredPalettes)
+  const { id } = request.params;
+  const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id));
+  return response.status(200).json(filteredPalettes);
 })
 
 //retrieves projects from back end -- FUNCTIONAL!
@@ -136,6 +136,13 @@ app.post('/api/v1/projects', (request, response) => {
   app.locals.projects.push({ id, ...project });
 
   return response.status(201).json({id});
+})
+
+//deletes project from back end -- FUNCTIONAL!
+app.delete('/api/v1/projects/:id', (request, response) => {
+  const { id } = request.params;
+  const filteredProjects = app.locals.projects.filter(project => project.id !== parseInt(id));
+  return response.status(200).json(filteredProjects);
 })
 
 app.listen(3000, () => {
