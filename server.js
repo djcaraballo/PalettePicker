@@ -64,8 +64,8 @@ app.get('/api/v1/palettes', (request, response) => {
 
 //retrieves specific palettes from back end -- FUNCTIONAL!
 app.get('/api/v1/palettes/:id', (request, response) => {
-  const id = parseInt(request.params.id);
-  const palette = app.locals.palettes.find(palette => palette.id === id)
+  const { id } = request.params;
+  const palette = app.locals.palettes.find(palette => palette.id === parseInt(id));
   if (!palette) {
     return response.status(404).json({ Error: `Palette with an id of ${id} could not be found.` });
   } else {
@@ -103,7 +103,16 @@ app.get('/api/v1/projects', (request, response) => {
   return response.status(200).json(projects);
 })
 
-//app.get('/api/v1/projects/:id')
+//retrieves specific project from back end -- FUNCTIONAL!
+app.get('/api/v1/projects/:id', (request, response) => {
+  const { id } = request.params;
+  const project = app.locals.projects.find(project => project.id === parseInt(id));
+  if (!project) {
+    return response.status(404).json({ Error: `Project with an id of ${id} could not be found.` })
+  } else {
+    return response.status(200).json(project);
+  }
+})
 
 //app.post('/api/v1/projects')
 
