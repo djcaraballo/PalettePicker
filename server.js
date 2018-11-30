@@ -94,7 +94,6 @@ app.post('/api/v1/palettes', (request, response) => {
   return response.status(201).json({id});
 });
 
-
 // app.delete('/api/v1/palettes/:id')
 
 //retrieves projects from back end -- FUNCTIONAL!
@@ -114,7 +113,25 @@ app.get('/api/v1/projects/:id', (request, response) => {
   }
 })
 
-//app.post('/api/v1/projects')
+//adds project to back end -- FUNCTIONAL!
+app.post('/api/v1/projects', (request, response) => {
+  const project = request.body;
+  const id = app.locals.palettes[app.locals.projects.length - 1].id + 1;
+
+  if (!project) {
+    return response.status(422).send({ Error: 'No project object provided.' })
+  }
+
+  for (let requiredParam of ['name']) {
+    if (!project[requiredParam]) {
+      return response.status(422).json({ Error: `Expected format: {name: <STRING>}. Missing the required parameter of ${requiredParam}.` })
+    }
+  }
+
+  app.locals.projects.push({ id, ...project });
+
+  return response.status(201).json({id});
+})
 
 app.listen(3000, () => {
   console.log('Palette Perfect server running on localhost:3000');
