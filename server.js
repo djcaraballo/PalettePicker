@@ -74,7 +74,7 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 
 });
 
-//adds color to specific palette
+//adds palette to back end -- FUNCTIONAL!
 app.post('/api/v1/palettes', (request, response) => {
   const palette = request.body;
   const id = app.locals.palettes[app.locals.palettes.length - 1].id + 1;
@@ -95,9 +95,13 @@ app.post('/api/v1/palettes', (request, response) => {
 });
 
 
-//app.delete('/api/v1/palettes/:id')
+// app.delete('/api/v1/palettes/:id')
 
-//app.get('/api/v1/projects')
+//retrieves projects from back end -- FUNCTIONAL!
+app.get('/api/v1/projects', (request, response) => {
+  const projects = app.locals.projects;
+  return response.status(200).json(projects);
+})
 
 //app.get('/api/v1/projects/:id')
 
