@@ -94,7 +94,12 @@ app.post('/api/v1/palettes', (request, response) => {
   return response.status(201).json({id});
 });
 
-// app.delete('/api/v1/palettes/:id')
+//deletes specific palette from project from back end --FUNCTIONAL!
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
+  const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id))
+  return response.status(200).json(filteredPalettes)
+})
 
 //retrieves projects from back end -- FUNCTIONAL!
 app.get('/api/v1/projects', (request, response) => {
