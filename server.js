@@ -10,49 +10,41 @@ app.locals.palettes = [
   {
     id: 1, 
     name: 'testPalette', 
-    colors: [
-      {id: '#393D3F', name: 'cape cod', type: 'neutral'},
-      {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
-      {id: '#C6C5B9', name: 'ash', type: 'neutral'},
-      {id: '#62929E', name: 'gothic', type: 'cool'},
-      {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
-    ],
+    hex1: {id: '#393D3F', name: 'cape cod', type: 'neutral'},
+    hex2: {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
+    hex3: {id: '#C6C5B9', name: 'ash', type: 'neutral'},
+    hex4: {id: '#62929E', name: 'gothic', type: 'cool'},
+    hex5: {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
     projectId: 1
   },
   {
     id: 2,
     name: 'testPalette2',
-    colors: [
-      {id: '000000', name: 'black', type: 'neutral'},
-      {id: 'FFFFFF', name: 'white', type: 'neutral'},
-      {id: 'FE0000', name: 'red', type: 'warm'},
-      {id: 'FEFB00', name: 'yellow', type: 'warm'},
-      {id: '0032FE', name: 'blue', type: 'cool'},
-    ],
+    hex1: {id: '#393D3F', name: 'cape cod', type: 'neutral'},
+    hex2: {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
+    hex3: {id: '#C6C5B9', name: 'ash', type: 'neutral'},
+    hex4: {id: '#62929E', name: 'gothic', type: 'cool'},
+    hex5: {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
     projectId: 2
   },
   {
     id: 3, 
     name: 'testPalette3', 
-    colors: [
-      {id: '#393D3F', name: 'cape cod', type: 'neutral'},
-      {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
-      {id: '#C6C5B9', name: 'ash', type: 'neutral'},
-      {id: '#62929E', name: 'gothic', type: 'cool'},
-      {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
-    ],
+    hex1: {id: '#393D3F', name: 'cape cod', type: 'neutral'},
+    hex2: {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
+    hex3: {id: '#C6C5B9', name: 'ash', type: 'neutral'},
+    hex4: {id: '#62929E', name: 'gothic', type: 'cool'},
+    hex5: {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
     projectId: 1
   },
   {
     id: 4,
     name: 'testPalette4',
-    colors: [
-      {id: '000000', name: 'black', type: 'neutral'},
-      {id: 'FFFFFF', name: 'white', type: 'neutral'},
-      {id: 'FE0000', name: 'red', type: 'warm'},
-      {id: 'FEFB00', name: 'yellow', type: 'warm'},
-      {id: '0032FE', name: 'blue', type: 'cool'},
-    ],
+    hex1: {id: '#393D3F', name: 'cape cod', type: 'neutral'},
+    hex2: {id: '#FDFDFF', name: 'titan white', type: 'neutral'},
+    hex3: {id: '#C6C5B9', name: 'ash', type: 'neutral'},
+    hex4: {id: '#62929E', name: 'gothic', type: 'cool'},
+    hex5: {id: '#546A7B', name: 'blue bayoux', type: 'cool'},
     projectId: 2
   }
 ];
@@ -70,35 +62,34 @@ app.get('/api/v1/palettes', (request, response) => {
   return response.status(200).json(palettes);
 });
 
-//retrieves specific palettes from back end
+//retrieves specific palettes from back end -- FUNCTIONAL!
 app.get('/api/v1/palettes/:id', (request, response) => {
-  const { id } = request.params;
-  const palette = app.locals.palettes.find((palette) => {
-    return palette.id === parseInt(id)
-  })
+  const id = parseInt(request.params.id);
+  const palette = app.locals.palettes.find(palette => palette.id === id)
+  if (!palette) {
+    return response.status(404).json({ Error: `Palette with an id of ${id} could not be found.` });
+  } else {
+    return response.status(200).json(palette);
+  }
 
-  return response.status(200).json(palette);
 });
 
 //adds color to specific palette
 app.post('/api/v1/palettes', (request, response) => {
-  const id = request.params.id
-  const color = request.body;
-  const palette = app.locals.palettes.find(palette => {
-    return palette.id === id
-  })
+  const palette = request.body;
+  const id = app.locals.palettes[app.locals.palettes.length - 1].id + 1;
 
-  if(!color) {
-    return response.status(422).send({ error: 'No color object provided' });
-  };
+  if (!palette) {
+    return response.status(422).send({ Error: 'No palette object provided.' })
+  }
 
-  for(let requiredParameter of ['name', 'type']) {
-    if(!color[requiredParameter]) {
-      return response.status(422).json({ error: `Expected format: {name: <STRING>, type:<STRING>}. Missing the required parameter of ${requiredParameter}.` });
-    };
-  };
+  for (let requiredParam of ['name', 'hex1', 'hex2', 'hex3', 'hex4', 'hex5', 'project_id']) {
+    if (!palette[requiredParam]) {
+      return response.status(422).json({ Error: `Expected format: {name: <STRING>, hex1: <STRING>, hex2: <STRING>, hex3: <STRING>, hex4: <STRING>, hex5: <STRING>, project_id: <NUMBER>}. Missing the required parameter of ${requiredParam}.` })
+    }
+  }
 
-  palette.push(color);
+  app.locals.palettes.push({ id, ...palette });
 
   return response.status(201).json({id});
 });
