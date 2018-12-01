@@ -18,9 +18,16 @@ app.get('/api/v1/projects', (request, response) => {
     });
 });
 
-app.set('port', process.env.PORT || 3000);
+// retrieves specific project from database
+app.get('/api/v1/projects/:id', (request, response) => {
+  const { id } = request.params;
 
-//retrieves all palettes from back end -- FUNCTIONAL!
+  database('projects').where('id', id).select()
+    .then(project => response.status(200).json(project))
+    .catch(error => console.log(`Error fetching project: ${error.message}`))
+})
+
+//retrieves all palettes from database
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
     .then((palettes) => {
@@ -34,13 +41,10 @@ app.get('/api/v1/palettes', (request, response) => {
 //retrieves specific palettes from back end -- FUNCTIONAL!
 app.get('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params;
-  const palette = app.locals.palettes.find(palette => palette.id === parseInt(id));
-  if (!palette) {
-    return response.status(404).json({ Error: `Palette with an id of ${id} could not be found.` });
-  } else {
-    return response.status(200).json(palette);
-  }
-
+  
+  database('palettes').where('id', id).select()
+    .then(palette => response.status(200).json(palette))
+    .catch(error => console.log(`Error fetching palette: ${error.message}`))
 });
 
 //adds palette to back end -- FUNCTIONAL!
