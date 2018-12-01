@@ -1,5 +1,6 @@
 //add option to drop down menu
 //inner html of section injected via js
+//lock colors when lock button is pressed
 //change unlocked image to locked on click
 //track changes to palette name input
 const firstColor = document.querySelector('.first-color');
@@ -25,15 +26,43 @@ const refreshBtn5 = document.querySelector('.refresh-btn5');
 
 
 const randomColor = () => {
- return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  let rdnmclr = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  return rdnmclr
 };
 
-const prepInitialPalette = () => {
-  firstColor.style.backgroundColor = randomColor();
-  secondColor.style.backgroundColor = randomColor();
-  thirdColor.style.backgroundColor = randomColor();
-  fourthColor.style.backgroundColor = randomColor();
-  fifthColor.style.backgroundColor = randomColor();
+const refreshFirstColor = () => {
+  let randomclr = randomColor();
+  console.log(randomclr)
+  firstColor.style.backgroundColor = randomclr;
+  hex1.innerHTML = firstColor.style.backgroundColor;
 }
 
-window.onload = prepInitialPalette();
+const refreshSecondColor = () => {
+  secondColor.style.backgroundColor = randomColor();
+  hex2.innerText = secondColor.style.backgroundColor;
+}
+
+const refreshThirdColor = () => {
+  thirdColor.style.backgroundColor = randomColor();
+  hex3.innerText = thirdColor.style.backgroundColor;
+}
+
+const refreshFourthColor = () => {
+  fourthColor.style.backgroundColor = randomColor();
+  hex4.innerText = fourthColor.style.backgroundColor;
+}
+
+const refreshFifthColor = () => {
+  fifthColor.style.backgroundColor = randomColor();
+  hex5.innerText = fifthColor.style.backgroundColor;
+}
+
+const refreshPalette = () => {
+  refreshFirstColor();
+  refreshSecondColor();
+  refreshThirdColor();
+  refreshFourthColor();
+  refreshFifthColor();
+}
+
+window.onload = refreshPalette();
