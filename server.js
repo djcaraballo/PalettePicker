@@ -27,7 +27,28 @@ app.get('/api/v1/projects/:id', (request, response) => {
     .catch(error => console.log(`Error fetching project: ${error.message}`))
 })
 
-//retrieves all palettes from database
+// adds project to database
+app.post('/api/v1/projects', (request, response) => {
+  const project = request.body;
+
+  for (let requiredParam of ['project_name']) {
+    if (!project[requiredParam]) {
+      return response.status(422).send({ Error: `Expected format: {project_name: <STRING>}. Missing the required parameter of ${requiredParam}.` })
+    }
+  }
+
+  database('projects').insert(project, 'id')
+    .then(projectIds => {
+      response.status(201).json({ id: projectIds[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ Error: error.message });
+    })
+})
+
+
+
+// retrieves all palettes from database
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
     .then((palettes) => {
@@ -38,7 +59,7 @@ app.get('/api/v1/palettes', (request, response) => {
     });
 });
 
-//retrieves specific palettes from back end -- FUNCTIONAL!
+// retrieves specific palette from database
 app.get('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params;
   
@@ -48,68 +69,53 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 });
 
 //adds palette to back end -- FUNCTIONAL!
-app.post('/api/v1/palettes', (request, response) => {
-  const palette = request.body;
-  const id = app.locals.palettes[app.locals.palettes.length - 1].id + 1;
+// app.post('/api/v1/palettes', (request, response) => {
+//   const palette = request.body;
+//   const id = app.locals.palettes[app.locals.palettes.length - 1].id + 1;
 
-  if (!palette) {
-    return response.status(422).send({ Error: 'No palette object provided.' })
-  }
+//   if (!palette) {
+//     return response.status(422).send({ Error: 'No palette object provided.' })
+//   }
 
-  for (let requiredParam of ['name', 'hex1', 'hex2', 'hex3', 'hex4', 'hex5', 'project_id']) {
-    if (!palette[requiredParam]) {
-      return response.status(422).json({ Error: `Expected format: {name: <STRING>, hex1: <STRING>, hex2: <STRING>, hex3: <STRING>, hex4: <STRING>, hex5: <STRING>, project_id: <NUMBER>}. Missing the required parameter of ${requiredParam}.` })
-    }
-  }
+//   for (let requiredParam of ['name', 'hex1', 'hex2', 'hex3', 'hex4', 'hex5', 'project_id']) {
+//     if (!palette[requiredParam]) {
+//       return response.status(422).json({ Error: `Expected format: {name: <STRING>, hex1: <STRING>, hex2: <STRING>, hex3: <STRING>, hex4: <STRING>, hex5: <STRING>, project_id: <NUMBER>}. Missing the required parameter of ${requiredParam}.` })
+//     }
+//   }
 
-  app.locals.palettes.push({ id, ...palette });
+//   app.locals.palettes.push({ id, ...palette });
 
-  return response.status(201).json({id});
-});
+//   return response.status(201).json({id});
+// });
 
 //deletes specific palette from palettes from back end --FUNCTIONAL!
-app.delete('/api/v1/palettes/:id', (request, response) => {
-  const { id } = request.params;
-  const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id));
-  return response.status(200).json(filteredPalettes);
-})
-
-//retrieves projects from back end -- FUNCTIONAL!
-// app.get('/api/v1/projects', (request, response) => {
-//   const projects = app.locals.projects;
-//   return response.status(200).json(projects);
+// app.delete('/api/v1/palettes/:id', (request, response) => {
+//   const { id } = request.params;
+//   const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id));
+//   return response.status(200).json(filteredPalettes);
 // })
 
-//retrieves specific project from back end -- FUNCTIONAL!
-app.get('/api/v1/projects/:id', (request, response) => {
-  const { id } = request.params;
-  const project = app.locals.projects.find(project => project.id === parseInt(id));
-  if (!project) {
-    return response.status(404).json({ Error: `Project with an id of ${id} could not be found.` })
-  } else {
-    return response.status(200).json(project);
-  }
-})
+
 
 //adds project to back end -- FUNCTIONAL!
-app.post('/api/v1/projects', (request, response) => {
-  const project = request.body;
-  const id = app.locals.palettes[app.locals.projects.length - 1].id + 1;
+// app.post('/api/v1/projects', (request, response) => {
+//   const project = request.body;
+//   const id = app.locals.palettes[app.locals.projects.length - 1].id + 1;
 
-  if (!project) {
-    return response.status(422).send({ Error: 'No project object provided.' })
-  }
+//   if (!project) {
+//     return response.status(422).send({ Error: 'No project object provided.' })
+//   }
 
-  for (let requiredParam of ['name']) {
-    if (!project[requiredParam]) {
-      return response.status(422).json({ Error: `Expected format: {name: <STRING>}. Missing the required parameter of ${requiredParam}.` })
-    }
-  }
+//   for (let requiredParam of ['name']) {
+//     if (!project[requiredParam]) {
+//       return response.status(422).json({ Error: `Expected format: {name: <STRING>}. Missing the required parameter of ${requiredParam}.` })
+//     }
+//   }
 
-  app.locals.projects.push({ id, ...project });
+//   app.locals.projects.push({ id, ...project });
 
-  return response.status(201).json({id});
-})
+//   return response.status(201).json({id});
+// })
 
 //deletes project from back end -- FUNCTIONAL!
 app.delete('/api/v1/projects/:id', (request, response) => {
