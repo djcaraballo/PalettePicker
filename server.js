@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 // retrieves all projects from database
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
-    .then((projects) => {
+    .then(projects => {
       response.status(200).json(projects);
     })
     .catch((error) => {
@@ -60,7 +60,7 @@ app.post('/api/v1/projects', (request, response) => {
 // retrieves all palettes from database
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
-    .then((palettes) => {
+    .then(palettes => {
       response.status(200).json(palettes);
     })
     .catch((error) => {
@@ -118,16 +118,22 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
       response.status(201).json({ id: paletteIds[0] })
     })
     .catch(error => {
-      response.status(500).json({ Error: error.message });
+      response.status(500).json({Error: `${error.message}`});
     })
 });
 
-//deletes specific palette from palettes from back end --FUNCTIONAL!
-// app.delete('/api/v1/palettes/:id', (request, response) => {
-//   const { id } = request.params;
-//   const filteredPalettes = app.locals.palettes.filter(palette => palette.id !== parseInt(id));
-//   return response.status(200).json(filteredPalettes);
-// })
+// deletes specific palette from database
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('palettes').where('id', id).del()
+    .then(() => {
+      response.status(200).send(`Project with id ${id} successfully deleted.`)
+    })
+    .catch(error => {
+      response.status(500).json({ Error: `${error.message}`})
+    })
+})
 
 
 app.listen(3000, () => {
