@@ -4,7 +4,7 @@
 body {
   background: linear-gradient(#393D3F, #000000);
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
 }
 
 h1 {
@@ -59,6 +59,13 @@ h3 {
   width: 100%;
 }
 
+.hex-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  width: 77%;
+}
+
 .first-color,
 .second-color,
 .third-color,
@@ -71,26 +78,21 @@ h3 {
 }
 
 .first-color {
-  /*background: #f43245;*/
 }
 
 .second-color {
-  /*background: #f48745;*/
   right: 50px;
 }
 
 .third-color {
-  /*background: #343245;*/
   right: 100px;
 }
 
 .fourth-color {
-  /*background: #f74a25;*/
   right: 150px;
 }
 
 .fifth-color {
-  /*background: #ab4945;*/
   right: 200px;
 }
 

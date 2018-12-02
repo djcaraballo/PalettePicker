@@ -3,16 +3,6 @@
 //lock colors when lock button is pressed
 //change unlocked image to locked on click
 //track changes to palette name input
-const firstColor = document.querySelector('.first-color');
-const secondColor = document.querySelector('.second-color');
-const thirdColor = document.querySelector('.third-color');
-const fourthColor = document.querySelector('.fourth-color');
-const fifthColor = document.querySelector('.fifth-color');
-const hex1 = document.querySelector('.hex1');
-const hex2 = document.querySelector('.hex2');
-const hex3 = document.querySelector('.hex3');
-const hex4 = document.querySelector('.hex4');
-const hex5 = document.querySelector('.hex5');
 const unlockedBtn1 = document.querySelector('.unlocked-btn1');
 const unlockedBtn2 = document.querySelector('.unlocked-btn2');
 const unlockedBtn3 = document.querySelector('.unlocked-btn3');
@@ -26,35 +16,37 @@ const refreshBtn5 = document.querySelector('.refresh-btn5');
 
 
 const randomColor = () => {
-  let rdnmclr = "#" + Math.floor(Math.random() * 16777215).toString(16);
-  return rdnmclr
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
 };
 
 const refreshFirstColor = () => {
-  let randomclr = randomColor();
-  console.log(randomclr)
-  firstColor.style.backgroundColor = randomclr;
-  hex1.innerHTML = firstColor.style.backgroundColor;
+  const firstColor = document.querySelector('.first-color');
+  const hex1 = document.querySelector('.hex1');
+  hex1.innerText = firstColor.style.backgroundColor = randomColor();
 }
 
 const refreshSecondColor = () => {
-  secondColor.style.backgroundColor = randomColor();
-  hex2.innerText = secondColor.style.backgroundColor;
+  const secondColor = document.querySelector('.second-color');
+  const hex2 = document.querySelector('.hex2');
+  hex2.innerText = secondColor.style.backgroundColor = randomColor();
 }
 
 const refreshThirdColor = () => {
-  thirdColor.style.backgroundColor = randomColor();
-  hex3.innerText = thirdColor.style.backgroundColor;
+  const hex3 = document.querySelector('.hex3');
+  const thirdColor = document.querySelector('.third-color');
+  hex3.innerText = thirdColor.style.backgroundColor = randomColor();
 }
 
 const refreshFourthColor = () => {
-  fourthColor.style.backgroundColor = randomColor();
-  hex4.innerText = fourthColor.style.backgroundColor;
+  const hex4 = document.querySelector('.hex4');
+  const fourthColor = document.querySelector('.fourth-color');
+  hex4.innerText = fourthColor.style.backgroundColor = randomColor();
 }
 
 const refreshFifthColor = () => {
-  fifthColor.style.backgroundColor = randomColor();
-  hex5.innerText = fifthColor.style.backgroundColor;
+  const hex5 = document.querySelector('.hex5');
+  const fifthColor = document.querySelector('.fifth-color');
+  hex5.innerText = fifthColor.style.backgroundColor = randomColor();
 }
 
 const refreshPalette = () => {
