@@ -85,6 +85,23 @@ app.get('/api/v1/palettes/:id', (request, response) => {
     .catch(error => response.status(500).json(`Error fetching palette: ${error.message}`))
 });
 
+// retrieves all palettes for a specific project
+app.get('/api/v1/projects/:id/palettes', (request, response) => {
+  const { id } = request.params;
+
+  database('palettes').where('project_id', id).select()
+    .then(palettes => {
+      if (palettes.length) {
+        response.status(200).json(palettes) 
+      } else {
+        response.status(404).json({
+          Error: `Could not find palettes for project with id ${id}`
+        })
+      }
+    })
+    .catch(error => response.status(500).json(`Error fetching palettes for project with the id ${id}: ${error.message}.`))
+})
+
 // adds palette to specific project in database
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const project_id = parseInt(request.params.id)
