@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const environment = process.env.NODE_ENV || 'development';
-const configuration = require('./PalettePerfectDB/knexfile')[environment];
+const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
 app.use(bodyParser.json());
@@ -53,9 +53,6 @@ app.post('/api/v1/projects', (request, response) => {
       response.status(500).json({ Error: error.message });
     })
 })
-
-
-
 
 // retrieves all palettes from database
 app.get('/api/v1/palettes', (request, response) => {

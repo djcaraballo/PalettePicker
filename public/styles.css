@@ -4,15 +4,15 @@
 body {
   background: linear-gradient(#393D3F, #000000);
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
 }
 
 h1 {
   background: -webkit-linear-gradient(left, #f8a44d, #9f4adf);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 6em;
   font-family: 'Montserrat', sans-serif;
+  font-size: 6em;
   margin: 1rem;
   text-align: center;
 }
@@ -51,12 +51,37 @@ h3 {
   width: 10em;
 }
 
+.palette-name-wrapper {
+  margin: 2rem auto 0.5rem;
+}
+
+.drop-menu-wrapper {
+  margin: 10px auto 3rem;
+  width: 15em;
+}
+
 .palette-wrapper {
   display: flex;
   justify-content: center;
   margin: auto;
   padding-left: 6rem;
   width: 100%;
+}
+
+.hex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 69%;
+}
+
+.hex-code {
+  margin-bottom: 10px;
+}
+
+.hex-btn-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .first-color,
@@ -71,26 +96,21 @@ h3 {
 }
 
 .first-color {
-  /*background: #f43245;*/
 }
 
 .second-color {
-  /*background: #f48745;*/
   right: 50px;
 }
 
 .third-color {
-  /*background: #343245;*/
   right: 100px;
 }
 
 .fourth-color {
-  /*background: #f74a25;*/
   right: 150px;
 }
 
 .fifth-color {
-  /*background: #ab4945;*/
   right: 200px;
 }
 
@@ -101,13 +121,67 @@ h3 {
   width: 67%;
 }
 
-.unlocked-btn {
-  height: 1.5em;
-  margin-right: 10px;
+.unlocked-color {
+  height: 15em;
+}
+
+.locked-color {
+  height: 15em;
+}
+
+.unlocked {
+  height: 3em;
+  margin: auto;
+}
+
+.locked {
+  height: 3em;
+  margin: auto;
+}
+
+.refresh-btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5em auto;
 }
 
 .refresh-btn {
-  height: 1.5em;
+  align-items: center;
+  background: #907e8e;
+  border-radius: 10px;
+  color: #ffffff;
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  height: 2em;
+  justify-content: center;
+}
+
+.refresh-btn:hover {
+  background: -webkit-linear-gradient(left, #f18c6b, #bc53cb);
+  cursor: pointer;
+}
+
+.refresh-btn:focus {
+  border-radius: 10px;
+}
+
+.refresh-img,
+.save-img {
+  margin-left: 10px;
+}
+
+.save-btn {
+  align-items: center;
+  background: #907e8e;
+  border-radius: 10px;
+  color: #ffffff;
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  height: 2em;
+  justify-content: center;
+  margin-top: 1em;
 }
 
 .recent-projects-wrapper {
