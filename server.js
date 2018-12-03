@@ -54,9 +54,6 @@ app.post('/api/v1/projects', (request, response) => {
     })
 })
 
-
-
-
 // retrieves all palettes from database
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
