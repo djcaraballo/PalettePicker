@@ -121,8 +121,21 @@ h3 {
   width: 67%;
 }
 
-.unlocked-btn {
-  height: 1.5em;
+.unlocked-color {
+  height: 15em;
+}
+
+.locked-color {
+  height: 15em;
+}
+
+.unlocked {
+  height: 3em;
+  margin: auto;
+}
+
+.locked {
+  height: 3em;
   margin: auto;
 }
 

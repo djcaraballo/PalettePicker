@@ -28,9 +28,9 @@ const randomColor = () => {
 const refreshFirstColor = () => {
   const firstColor = document.querySelector('.first-color');
   const hex1 = document.querySelector('.hex1');
-  if (!firstColor.classList.contains('locked')) {
+  if (!firstColor.classList.contains('locked-color')) {
     hex1.innerText = firstColor.style.backgroundColor = randomColor();
-  } else if (firstColor.classList.contains('locked')) {
+  } else if (firstColor.classList.contains('locked-color')) {
     hex1.innerText = hexCodes[0]
   }
 
@@ -46,9 +46,9 @@ const refreshSecondColor = () => {
   const secondColor = document.querySelector('.second-color');
   const hex2 = document.querySelector('.hex2');
 
-  if(!secondColor.classList.contains('locked')) {
+  if(!secondColor.classList.contains('locked-color')) {
     hex2.innerText = secondColor.style.backgroundColor = randomColor();
-  } else if (secondColor.classList.contains('locked')) {
+  } else if (secondColor.classList.contains('locked-color')) {
     hex2.innerText = hexCodes[1]
   }
 
@@ -64,9 +64,9 @@ const refreshThirdColor = () => {
   const hex3 = document.querySelector('.hex3');
   const thirdColor = document.querySelector('.third-color');
 
-  if (!thirdColor.classList.contains('locked')) {
+  if (!thirdColor.classList.contains('locked-color')) {
     hex3.innerText = thirdColor.style.backgroundColor = randomColor(); 
-  } else if (thirdColor.classList.contains('locked')) {
+  } else if (thirdColor.classList.contains('locked-color')) {
     hex3.innerText = hexCodes[2]
   }
 
@@ -82,9 +82,9 @@ const refreshFourthColor = () => {
   const hex4 = document.querySelector('.hex4');
   const fourthColor = document.querySelector('.fourth-color');
 
-  if (!fourthColor.classList.contains('locked')) {
+  if (!fourthColor.classList.contains('locked-color')) {
     hex4.innerText = fourthColor.style.backgroundColor = randomColor();
-  } else if (fourthColor.classList.contains('locked')) {
+  } else if (fourthColor.classList.contains('locked-color')) {
     hex4.innerText = hexCodes[3]
   }
 
@@ -100,9 +100,9 @@ const refreshFifthColor = () => {
   const hex5 = document.querySelector('.hex5');
   const fifthColor = document.querySelector('.fifth-color');
 
-  if (!fifthColor.classList.contains('locked')) {
+  if (!fifthColor.classList.contains('locked-color')) {
     hex5.innerText = fifthColor.style.backgroundColor = randomColor();
-  } else if (fifthColor.classList.contains('locked')) {
+  } else if (fifthColor.classList.contains('locked-color')) {
     hex5.innerText = hexCodes[4]
   }
 
@@ -156,14 +156,14 @@ const toggleLock = (input) => {
     input.src='./assets/images/lockedicon.png';
     input.classList.remove("unlocked")
     input.classList.add("locked");
-    targetDiv.classList.remove("unlocked")
-    targetDiv.classList.add("locked")
+    targetDiv.classList.remove("unlocked-color")
+    targetDiv.classList.add("locked-color")
   } else if(input.classList.contains("locked")) {
     input.src='./assets/images/unlock.png';
     input.classList.remove("locked");
     input.classList.add("unlocked");
-    targetDiv.classList.remove("locked");
-    targetDiv.classList.add("unlocked");
+    targetDiv.classList.remove("locked-color");
+    targetDiv.classList.add("unlocked-color");
     // console.log(targetDiv.name)
   }
   return false;
