@@ -3,11 +3,7 @@
 //lock colors when lock button is pressed
 //change unlocked image to locked on click
 //track changes to palette name input
-const unlockedBtn1 = document.querySelector('.unlocked-btn1');
-const unlockedBtn2 = document.querySelector('.unlocked-btn2');
-const unlockedBtn3 = document.querySelector('.unlocked-btn3');
-const unlockedBtn4 = document.querySelector('.unlocked-btn4');
-const unlockedBtn5 = document.querySelector('.unlocked-btn5');
+
 
 // retrieve specific project--GET `http://localhost:3000/api/v1/projects/${id}`
 // retrieve all palettes for a specific project--GET `http://localhost:3000/api/v1/projects/${id}/palettes`
@@ -17,8 +13,7 @@ const unlockedBtn5 = document.querySelector('.unlocked-btn5');
 
 const hexCodes = [];
 const refreshBtn = document.querySelector('.refresh-btn')
-
-
+const saveBtn = document.querySelector('.save-btn')
 
 // random color generator
 const randomColor = () => {
@@ -33,7 +28,11 @@ const randomColor = () => {
 const refreshFirstColor = () => {
   const firstColor = document.querySelector('.first-color');
   const hex1 = document.querySelector('.hex1');
-  hex1.innerText = firstColor.style.backgroundColor = randomColor();
+  if (!firstColor.classList.contains('locked')) {
+    hex1.innerText = firstColor.style.backgroundColor = randomColor();
+  } else if (firstColor.classList.contains('locked')) {
+    hex1.innerText = hexCodes[0]
+  }
 
   if (!hexCodes.length) {
     hexCodes.push(hex1.innerText)
@@ -46,7 +45,12 @@ const refreshFirstColor = () => {
 const refreshSecondColor = () => {
   const secondColor = document.querySelector('.second-color');
   const hex2 = document.querySelector('.hex2');
-  hex2.innerText = secondColor.style.backgroundColor = randomColor();
+
+  if(!secondColor.classList.contains('locked')) {
+    hex2.innerText = secondColor.style.backgroundColor = randomColor();
+  } else if (secondColor.classList.contains('locked')) {
+    hex2.innerText = hexCodes[1]
+  }
 
   if (hexCodes.length === 1) {
     hexCodes.push(hex2.innerText)
@@ -59,7 +63,12 @@ const refreshSecondColor = () => {
 const refreshThirdColor = () => {
   const hex3 = document.querySelector('.hex3');
   const thirdColor = document.querySelector('.third-color');
-  hex3.innerText = thirdColor.style.backgroundColor = randomColor();
+
+  if (!thirdColor.classList.contains('locked')) {
+    hex3.innerText = thirdColor.style.backgroundColor = randomColor(); 
+  } else if (thirdColor.classList.contains('locked')) {
+    hex3.innerText = hexCodes[2]
+  }
 
   if (hexCodes.length === 2) {
     hexCodes.push(hex3.innerText)
@@ -72,7 +81,12 @@ const refreshThirdColor = () => {
 const refreshFourthColor = () => {
   const hex4 = document.querySelector('.hex4');
   const fourthColor = document.querySelector('.fourth-color');
-  hex4.innerText = fourthColor.style.backgroundColor = randomColor();
+
+  if (!fourthColor.classList.contains('locked')) {
+    hex4.innerText = fourthColor.style.backgroundColor = randomColor();
+  } else if (fourthColor.classList.contains('locked')) {
+    hex4.innerText = hexCodes[3]
+  }
 
   if (hexCodes.length === 3) {
     hexCodes.push(hex4.innerText)
@@ -85,7 +99,12 @@ const refreshFourthColor = () => {
 const refreshFifthColor = () => {
   const hex5 = document.querySelector('.hex5');
   const fifthColor = document.querySelector('.fifth-color');
-  hex5.innerText = fifthColor.style.backgroundColor = randomColor();
+
+  if (!fifthColor.classList.contains('locked')) {
+    hex5.innerText = fifthColor.style.backgroundColor = randomColor();
+  } else if (fifthColor.classList.contains('locked')) {
+    hex5.innerText = hexCodes[4]
+  }
 
   if (hexCodes.length === 4) {
     hexCodes.push(hex5.innerText)
@@ -103,7 +122,6 @@ const refreshPalette = () => {
   refreshFourthColor(),
   refreshFifthColor()
 }
-// console.log(`${refreshPalette}`)
 
 refreshBtn.addEventListener('click', refreshPalette)
 
@@ -130,9 +148,43 @@ const formatPalette = () => {
   return formattedPalette
 }
 
+const toggleLock = (input) => {
+  const targetName = event.target.name
+  const targetDiv = document.getElementById(`${targetName}`)
+  // console.log(targetName)
+  if(!input.classList.contains("locked")) {
+    input.src='./assets/images/lockedicon.png';
+    input.classList.remove("unlocked")
+    input.classList.add("locked");
+    targetDiv.classList.remove("unlocked")
+    targetDiv.classList.add("locked")
+  } else if(input.classList.contains("locked")) {
+    input.src='./assets/images/unlock.png';
+    input.classList.remove("locked");
+    input.classList.add("unlocked");
+    targetDiv.classList.remove("locked");
+    targetDiv.classList.add("unlocked");
+    // console.log(targetDiv.name)
+  }
+  return false;
+}
 
+// const savePalette = () => {
+//   const paletteToSave = formatPalette()
+//   let i = 1;
+//   const project = `Project${i}`
+//   // console.log(paletteToSave)
+//   fetch('http://localhost:3000/api/v1/projects', {
+//     method: 'POST',
+//     body: project
+//   })
+//   fetch(`http://localhost:3000/api/v1/projects/${id}/palettes`, {
+//     method: 'POST',
+//     body: paletteToSave
+//   })
+// }
 
-// paletteNameInput.addEventListener('change', formatPalette)
+// saveBtn.addEventListener('click', savePalette)
 
 window.onload = refreshPalette();
 
