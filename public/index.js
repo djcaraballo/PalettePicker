@@ -14,6 +14,8 @@
 const hexCodes = [];
 const refreshBtn = document.querySelector('.refresh-btn')
 const saveBtn = document.querySelector('.save-btn')
+const nameWarning = document.querySelector('.palette-name-warning')
+
 
 // random color generator
 const randomColor = () => {
@@ -111,33 +113,24 @@ const refreshFifthColor = () => {
   } else {
     hexCodes.splice(4, 1, hex5.innerText)
   }
-  console.log(hexCodes)
   return hex5.innerText;
 }
 
-const refreshPalette = () => {
+const refreshPage = () => {
   refreshFirstColor(),
   refreshSecondColor(),
   refreshThirdColor(),
   refreshFourthColor(),
-  refreshFifthColor()
+  refreshFifthColor(),
+  displayRecentProjects()
 }
 
-refreshBtn.addEventListener('click', refreshPalette)
-
-const fetchData = async (url) => {
-  const response = await fetch(url)
-  if (response.status >= 300) {
-    return 'Error: Failed to fetch data.'
-  } else {
-    const result = await response.json() 
-    return result
-  }
-}
+refreshBtn.addEventListener('click', refreshPage)
 
 const formatPalette = () => {
   const palette_name = document.querySelector('.palette-name-input').value
   let i = 1;
+
   const hexPalette = hexCodes.reduce((palette, hexCode) => {
     palette[`hex${i}`] = hexCode
     i++
@@ -151,7 +144,6 @@ const formatPalette = () => {
 const toggleLock = (input) => {
   const targetName = event.target.name
   const targetDiv = document.getElementById(`${targetName}`)
-  // console.log(targetName)
   if(!input.classList.contains("locked")) {
     input.src='./assets/images/lockedicon.png';
     input.classList.remove("unlocked")
@@ -164,29 +156,72 @@ const toggleLock = (input) => {
     input.classList.add("unlocked");
     targetDiv.classList.remove("locked-color");
     targetDiv.classList.add("unlocked-color");
-    // console.log(targetDiv.name)
   }
   return false;
 }
 
-// const savePalette = () => {
-//   const paletteToSave = formatPalette()
-//   let i = 1;
-//   const project = `Project${i}`
-//   // console.log(paletteToSave)
-//   fetch('http://localhost:3000/api/v1/projects', {
-//     method: 'POST',
-//     body: project
-//   })
-//   fetch(`http://localhost:3000/api/v1/projects/${id}/palettes`, {
-//     method: 'POST',
-//     body: paletteToSave
-//   })
-// }
+const formatProject = () => {
+  const projectName = document.querySelector('.project-name-input').value
+  return {project_name: projectName}
+}
 
-// saveBtn.addEventListener('click', savePalette)
+const savePalette = async () => {
+  const paletteToSave = formatPalette()  
+  const id = await postToProjects()
+  await fetch(`http://localhost:3000/api/v1/projects/${id}/palettes`, {
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(paletteToSave)
+  })
+}
 
-window.onload = refreshPalette();
+const postToProjects = async () => {
+  const projectToSave = formatProject()
+  const response = await fetch('http://localhost:3000/api/v1/projects', {
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(projectToSave)
+  })
+  const result = await response.json()
+  return result.id
+}
 
+const fetchPalette = async (url) => {
+  const response = await fetch(url)
+  const result = await response.json()
+  console.log(result[0].hex1)
+  return `<div class="mini-palette" style="background: ${result[0].hex1}"></div>
+          <div class="mini-palette" style="background: ${result[0].hex2}"></div>
+          <div class="mini-palette" style="background: ${result[0].hex3}"></div>
+          <div class="mini-palette" style="background: ${result[0].hex4}"></div>
+          <div class="mini-palette" style="background: ${result[0].hex5}"></div>`
+}
 
-formatPalette()
+const displayRecentProjects = async () =>{
+  const recentSection = document.querySelector('.recent-projects')
+  const projectsResponse = await fetch('http://localhost:3000/api/v1/projects')
+  const projectsResult = await projectsResponse.json()
+
+  const firstRecent = projectsResult[projectsResult.length - 1]
+  const secondRecent = projectsResult[projectsResult.length - 2]
+  const thirdRecent = projectsResult[projectsResult.length - 3]
+
+  const firstRecentPalette = await fetchPalette(`http://localhost:3000/api/v1/projects/${firstRecent.id}/palettes`)
+  const secondRecentPalette = await fetchPalette(`http://localhost:3000/api/v1/projects/${secondRecent.id}/palettes`)
+  const thirdRecentPalette = await fetchPalette(`http://localhost:3000/api/v1/projects/${thirdRecent.id}/palettes`)
+
+  const newArticle = `<article>
+                        <p>${firstRecent.project_name}</p>
+                        <div>${firstRecentPalette}</div>
+                        <p>${secondRecent.project_name}</p>
+                        <div>${secondRecentPalette}</div>
+                        <p>${thirdRecent.project_name}</p>
+                        <div>${thirdRecentPalette}</div>
+                      </article>`
+  recentSection.innerHTML = newArticle
+}
+
+saveBtn.addEventListener('click', savePalette)
+
+window.onload = refreshPage();
+
