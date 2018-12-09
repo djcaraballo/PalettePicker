@@ -11,7 +11,7 @@ This project was created working with a custom built front-end UI and back-end d
 ## How to Use
 
 ## See it live!
-![A screen recording of the application]()
+![A screen recording of the application](https://github.com/djcaraballo/PalettePicker/blob/master/public/assets/images/ScreenVideo.gif)
 
 ## Languages/Technologies Used
 Front-end: HTML5, CSS3, Vanilla JS
