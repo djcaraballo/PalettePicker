@@ -30,7 +30,8 @@ h3 {
   margin: 1rem 0;
 }
 
-.palette-name-input {
+.palette-name-input,
+.project-name-input {
   background: #292c2d;
   border-bottom: 2px solid #ffffff;
   border-left: none;
@@ -188,6 +189,16 @@ h3 {
   margin: auto;
   text-align: center;
   width: 80%;
+}
+
+.recent-projects {
+  color: #e8a9a9;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mini-palette {
+  height: 1em;
+  width: 1em;
 }
 
 
